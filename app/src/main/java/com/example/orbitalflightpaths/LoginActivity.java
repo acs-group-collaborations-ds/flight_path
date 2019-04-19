@@ -3,6 +3,7 @@ package com.example.orbitalflightpaths;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -55,12 +56,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+    private int formstate = 0;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
+    private EditText mPasswordView, mConfirmPassword;
     private View mProgressView;
     private View mLoginFormView;
+    private TextView switchForm;
+    private Button mEmailSignInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +96,35 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        mConfirmPassword = findViewById(R.id.confirm_password_id);
+        switchForm = findViewById(R.id.new_user_text);
+        switchForm.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                formSwitcher(formstate);
+            }
+        });
+    }
+
+
+    private void formSwitcher(int state){
+        if (state == 0){
+            switchForm.setText(getResources().getText(R.string.existing_user_text_string));
+            mEmailSignInButton.setText(getResources().getString(R.string.action_register_button));
+            mConfirmPassword.setVisibility(View.VISIBLE);
+
+
+            formstate = 1;
+        }
+        else {
+            switchForm.setText(getResources().getText(R.string.new_user_text_string));
+            mEmailSignInButton.setText(getResources().getString(R.string.action_sign_in));
+            mConfirmPassword.setVisibility(View.GONE);
+
+
+            formstate = 0;
+        }
     }
 
     private void populateAutoComplete() {
@@ -333,6 +366,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+                Intent intent=new Intent(LoginActivity.this, Dashboard.class);
+                startActivity(intent);
+
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
