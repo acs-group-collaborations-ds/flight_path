@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
-    private int formstate = 0;
+    private int form_state = 0;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -71,10 +71,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         switchForm.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                formSwitcher(formstate);
+                formSwitcher(form_state);
             }
         });
     }
@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mConfirmPassword.setVisibility(View.VISIBLE);
 
 
-            formstate = 1;
+            form_state = 1;
         }
         else {
             switchForm.setText(getResources().getText(R.string.new_user_text_string));
@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mConfirmPassword.setVisibility(View.GONE);
 
 
-            formstate = 0;
+            form_state = 0;
         }
     }
 
