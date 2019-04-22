@@ -199,11 +199,12 @@ public class LoginActivity extends AppCompatActivity{
                         }
                     });
                     alert.show();
+                    mConfirmPassword.getText().clear();
                     formSwitcher(false);
                 } else {
                     final AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
                     alert.setTitle("Failed");
-                    alert.setMessage("Could not register!");
+                    alert.setMessage("Could not register or user already exists!");
                     alert.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(@NonNull DialogInterface dialog, int whichButton) {
                             dialog.cancel();
@@ -258,6 +259,7 @@ public class LoginActivity extends AppCompatActivity{
                     sb.append(line + "\n");
                 }
                 results = sb.toString();
+                Log.d("Read:doInBackground-->", "Results value: " + results);
             }
             catch (Exception e) {
                 android.util.Log.e("Read:doInBackground--> ", "Reading server response: " + e.toString());
@@ -268,10 +270,12 @@ public class LoginActivity extends AppCompatActivity{
         @Override
         protected void onPostExecute(Void result) {
             try {
-                json_data = new JSONObject(results);
-                int code = (json_data.getInt("code"));
-                Log.d("LoginServerResp: ", "Return code is" + code);
-                if (code == 1) {
+//                json_data = new JSONObject(results);
+//                int data = (json_data.getInt("total"));
+//                Log.d("LoginServerResp: ", "Return code is" + data);
+                Log.d("Read:postExecute-->", "Results value: " + results);
+                if (results.toLowerCase().contains("Data Matched".toLowerCase())) {
+                    Log.d("LoginServerResp: ", "Evaluation");
                     Intent intent = new Intent(LoginActivity.this, Dashboard.class);
                     startActivity(intent);
                     finish();
@@ -289,7 +293,7 @@ public class LoginActivity extends AppCompatActivity{
                 }
             }
             catch (Exception e) {
-                Log.e("Read:PostExecute --> ", "Server log in response (JSON)" + e.toString());
+                Log.e("Read:PostExecute --> ", "Server log in response (JSON) " + e.toString());
             }
             mProgressDialog.dismiss();
         }
