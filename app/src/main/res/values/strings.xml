@@ -21,15 +21,18 @@
     <string name="title_activity_dashboard">Dashboard</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">(No Set Names)</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="ship">Ship</string>
+    <string name="ship">Ships</string>
     <string name="fuel">Fuel</string>
     <string name="payloads">Payloads</string>
     <string name="map">Map</string>
     <string name="sign_out">Sign Out</string>
     <string name="settings">Settings</string>
     <string name="options">Options</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="activity_settings_Category_Users">User Settings</string>
+    <string name="activity_settings_Change_Name">Change your display name</string>
 </resources>

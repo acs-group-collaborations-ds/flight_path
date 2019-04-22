@@ -5,19 +5,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_ships"
             android:icon="@mipmap/rocket_24"
             android:title="@string/ship" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_fuel"
             android:icon="@mipmap/gas_station_24"
             android:title="@string/fuel" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_payloads"
             android:icon="@mipmap/payload_box_24"
             android:title="@string/payloads" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_map"
             android:icon="@mipmap/planet_24"
             android:title="@string/map" />
     </group>
@@ -25,10 +25,10 @@
     <item android:title="@string/options">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_settings"
                 android:title="@string/settings" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_sign_out"
                 android:title="@string/sign_out" />
         </menu>
     </item>

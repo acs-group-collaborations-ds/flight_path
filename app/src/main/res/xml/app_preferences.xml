@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/activity_settings_Category_Users">
+
+        <EditTextPreference
+            android:key="key1"
+            android:title="@string/activity_settings_Change_Name"
+            android:summary="Click to set the name that will be shown on the drawer's header."
+            android:dialogMessage="Enter full name:">
+
+        </EditTextPreference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

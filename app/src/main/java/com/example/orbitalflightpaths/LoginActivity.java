@@ -3,6 +3,7 @@ package com.example.orbitalflightpaths;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -42,11 +43,15 @@ public class LoginActivity extends AppCompatActivity{
     JSONObject json_data;
     LogIn logIn;
     Register register;
+    SharedPreferences myDB;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        myDB = getSharedPreferences("ORBITAL_DATA", MODE_PRIVATE);
+
         mEmail = findViewById(R.id.email);
         mPasswordView = findViewById(R.id.password);
 
@@ -276,6 +281,7 @@ public class LoginActivity extends AppCompatActivity{
                 Log.d("Read:postExecute-->", "Results value: " + results);
                 if (results.toLowerCase().contains("Data Matched".toLowerCase())) {
                     Log.d("LoginServerResp: ", "Evaluation");
+                    logUser(mEmail.getText().toString().trim());
                     Intent intent = new Intent(LoginActivity.this, Dashboard.class);
                     startActivity(intent);
                     finish();
@@ -296,6 +302,11 @@ public class LoginActivity extends AppCompatActivity{
                 Log.e("Read:PostExecute --> ", "Server log in response (JSON) " + e.toString());
             }
             mProgressDialog.dismiss();
+        }
+        private void logUser(String username){
+            editor = myDB.edit();
+            editor.putString("username", username);
+            editor.apply();
         }
     }
 
