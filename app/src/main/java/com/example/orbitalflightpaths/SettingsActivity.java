@@ -31,7 +31,6 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            // here we should call settings ui
             addPreferencesFromResource(R.xml.app_preferences);
 
         }

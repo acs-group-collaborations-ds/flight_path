@@ -20,7 +20,6 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
     SharedPreferences myDB;
     SharedPreferences.Editor myDB_Editor;
-    private String user;
     TextView user_display;
 
     @Override
@@ -50,7 +49,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         View headerView = navigationView.getHeaderView(0);
 
         myDB = getSharedPreferences("ORBITAL_DATA", MODE_PRIVATE);
-        user = myDB.getString("username", "error");
+        String user = myDB.getString("username", "error");
         user_display = headerView.findViewById(R.id.user_display_email);
         user_display.setText(user);
     }
@@ -109,6 +108,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
             myDB_Editor.apply();
             Intent login = new Intent(Dashboard.this, LoginActivity.class);
             startActivity(login);
+            finish();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
