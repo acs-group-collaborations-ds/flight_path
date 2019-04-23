@@ -35,8 +35,8 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent newMission = new Intent(Dashboard.this, NewMissionActivity.class);
+                startActivity(newMission);
             }
         });
 

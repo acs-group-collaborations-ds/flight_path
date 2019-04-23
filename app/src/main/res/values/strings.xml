@@ -35,4 +35,10 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="activity_settings_Category_Users">User Settings</string>
     <string name="activity_settings_Change_Name">Change your display name</string>
+    <string name="title_activity_new_mission">NewMissionActivity</string>
+    <string name="str_mission_name">Mission Name</string>
+    <string name="ship_title_section">Ship/Vehicle</string>
+    <string name="starting_point">Starting Point</string>
+    <string name="destination">Destination</string>
+    <string name="create">CREATE</string>
 </resources>

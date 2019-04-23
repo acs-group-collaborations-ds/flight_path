@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="orbitalcolor">#00FFD5</color>
+    <color name="cust_text_color">#009789</color>
 </resources>
