@@ -101,6 +101,8 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         } else if (id == R.id.nav_map) {
 
         } else if (id == R.id.nav_settings) {
+            Intent settings = new Intent(Dashboard.this, SettingsActivity.class);
+            startActivity(settings);
 
         } else if (id == R.id.nav_sign_out) {
             myDB_Editor = myDB.edit();

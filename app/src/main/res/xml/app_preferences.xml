@@ -5,10 +5,9 @@
         android:title="@string/activity_settings_Category_Users">
 
         <EditTextPreference
-            android:key="key1"
+            android:key="name_pref"
             android:title="@string/activity_settings_Change_Name"
-            android:summary="Click to set the name that will be shown on the drawer's header."
-            android:dialogMessage="Enter full name:">
+            android:summary="Click to set the name that will be shown on the drawer's header.">
 
         </EditTextPreference>
 
