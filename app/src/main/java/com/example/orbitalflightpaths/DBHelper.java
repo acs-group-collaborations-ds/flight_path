@@ -7,14 +7,12 @@ import android.util.Log;
 import android.database.Cursor;
 
 public class DBHelper extends SQLiteOpenHelper {
-    /*public static final String ID = "stdid";
-    public static final String NAME = "stdname";
-    public static final String RID = "rid";*/
-    public static final String DATABASE_NAME = "ofpLocal";
-    //    public static final String DATABASE_TABLE = "student";
-    public static final int DATABASE_VERSION = 1;
-    private static final String TABLE_M = "userstate";
-    SQLiteDatabase db;
+    private static final String DATABASE_NAME = "ofpLocal";
+    private static final int DATABASE_VERSION = 1;
+    private static final String TABLE_SHIPS = "ships";
+    private static final String TABLE_PAYLOADS = "payloads";
+    private static final String TABLE_MISSIONS = "missions";
+    private SQLiteDatabase db;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -22,29 +20,49 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        /*String DB_CREATE = "CREATE DATABASE " + DATABASE_NAME;
-        String TABLE_CREATE = "CREATE TABLE " + DATABASE_TABLE + " (" + RID + "PRIMARYKEY, AUTO_INCREMENT, " + ID + ", TEXT, " + NAME + " text)";
-        sqLiteDatabase.execSQL(DB_CREATE);
-        sqLiteDatabase.execSQL(TABLE_CREATE);
-        Log.d("Table", "Table created");*/
 
-        String CREATE = "CREATE TABLE " + TABLE_M +"(regno TEXT,name TEXT)"; db.execSQL(CREATE);
+        String create_ships = "CREATE TABLE " + TABLE_SHIPS +"(shipname TEXT,shipmass TEXT)";
+        String create_payloads = "CREATE TABLE " + TABLE_PAYLOADS +"(payloadname TEXT,payloadmass TEXT)";
+        String create_missions = "CREATE TABLE " + TABLE_MISSIONS +"(regno TEXT,name TEXT)";
+        db.execSQL(create_ships);
+        db.execSQL(create_payloads);
+        db.execSQL(create_missions);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_M); onCreate(db);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHIPS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PAYLOADS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MISSIONS);
+        onCreate(db);
     }
 
-    public void writeData(String regno,String name){
+    public void writeData(String table, String param1,String param2){
         db=getWritableDatabase();
-        db.execSQL("insert into mytable values ('"+regno+"','"+name +"')");
+        switch (table){
+            case TABLE_SHIPS:
+                db.execSQL("insert into "+ table +" values ('"+ param1 +"','"+ param2 +"')");
+                break;
+            case TABLE_PAYLOADS:
+                db.execSQL("insert into "+ table +" values ('"+ param1 +"','"+ param2 +"')");
+                break;
+            default:
+                break;
+        }
     }
 
-    public void updateData(String regno,String name){
+    public void updateData(String table, String param1,String param2){
         db=getWritableDatabase();
-        db.execSQL("update mytable set name='"+name +"'where regno='"+regno+"'");
+        switch (table){
+            case TABLE_SHIPS:
+                db.execSQL("update "+ table + " set name='"+ param1 +"'where regno='"+ param2 +"'");
+                break;
+            case TABLE_PAYLOADS:
+                db.execSQL("update "+ table + " set name='"+ param1 +"'where regno='"+ param2 +"'");
+                break;
+            default:
+                break;
+        }
     }
 
     public void deleteData(String regno){
@@ -52,14 +70,26 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("delete from mytable where regno='"+regno+"'");
     }
 
-    public Cursor readData(String regno) {
+    public Cursor readData(String table, String column, String data, String id) {
         Cursor c1 = null;
         try {
             db = this.getReadableDatabase();
-            c1 = db.rawQuery("select name from mytable where regno="+regno, null);
+            switch (table){
+                case TABLE_SHIPS:
+                    c1 = db.rawQuery("select "+ data +" from "+ table +" where "+ column +"="+id, null);
+                    break;
+                case TABLE_PAYLOADS:
+                    c1 = db.rawQuery("select "+ data +" from "+ table +" where "+ column +"="+id, null);
+                    break;
+                case TABLE_MISSIONS:
+                    c1 = db.rawQuery("select "+ data +" from "+ table +" where "+ column +"="+id, null);
+                    break;
+                default:
+                    break;
+            }
         }
         catch (Exception e) {
-            System.out.println("DATABASE ERROR " + e);
+            Log.e("DATABASE ERROR: ", e.toString());
         }
         return c1;
     }
