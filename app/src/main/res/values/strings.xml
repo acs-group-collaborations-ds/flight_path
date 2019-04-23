@@ -54,4 +54,8 @@
     <string name="ship_name">Ship Name</string>
     <string name="ship_mass_kg">Ship Mass (KG)</string>
     <string name="add">ADD</string>
+    <string name="title_activity_payloads">Payloads</string>
+    <string name="title_activity_new_payload">New Payload</string>
+    <string name="payload_name">Payload Name</string>
+    <string name="payload_mass_kg">Payload Mass(KG)</string>
 </resources>

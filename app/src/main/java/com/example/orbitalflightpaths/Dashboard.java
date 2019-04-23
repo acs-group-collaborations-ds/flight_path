@@ -118,7 +118,8 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         } else if (id == R.id.nav_fuel) {
 
         } else if (id == R.id.nav_payloads) {
-
+            Intent payload_list = new Intent(Dashboard.this, Payloads.class);
+            startActivity(payload_list);
         } else if (id == R.id.nav_map) {
 
         } else if (id == R.id.nav_settings) {
