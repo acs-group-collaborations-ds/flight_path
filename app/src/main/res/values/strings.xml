@@ -11,9 +11,6 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
     <string name="confirm_password_hint">Confirm Password</string>
     <string name="new_user_text_string"><u>No account? Click here to sign up!</u></string>
     <string name="existing_user_text_string"><u>Already have an account? Click here to sign in!</u></string>
@@ -51,4 +48,10 @@
     <string name="estimated_cost">Estimated Cost</string>
     <string name="based_on_rt">#Based_On_RT</string>
     <string name="calculate_return_trip">Calculate return trip?</string>
+    <string name="title_activity_ships">Ships</string>
+    <string name="title_activity_new_ships">Add New Ships</string>
+    <string name="add_new_launch_vehicle">Add New Launch Vehicle</string>
+    <string name="ship_name">Ship Name</string>
+    <string name="ship_mass_kg">Ship Mass (KG)</string>
+    <string name="add">ADD</string>
 </resources>

@@ -112,6 +112,9 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
         if (id == R.id.nav_ships) {
 
+            Intent shipsView = new Intent(Dashboard.this, Ships.class);
+            startActivity(shipsView);
+
         } else if (id == R.id.nav_fuel) {
 
         } else if (id == R.id.nav_payloads) {

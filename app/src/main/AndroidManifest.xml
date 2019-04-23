@@ -12,9 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".NewShips"
+            android:label="@string/title_activity_new_ships"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Ships"
+            android:label="@string/title_activity_ships"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".MissionOverviewActivity"
             android:label="@string/title_activity_mission_overview"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NewMissionActivity"
             android:label="@string/title_activity_new_mission"
