@@ -91,6 +91,8 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent settings = new Intent(Dashboard.this, SettingsActivity.class);
+            startActivity(settings);
             return true;
         }
 

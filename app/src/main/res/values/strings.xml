@@ -41,4 +41,13 @@
     <string name="starting_point">Starting Point</string>
     <string name="destination">Destination</string>
     <string name="create">CREATE</string>
+    <string name="title_activity_mission_overview">MissionOverviewActivity</string>
+    <string name="duration">Duration</string>
+    <string name="mission_duration">#Mission_Duration</string>
+    <string name="composition_by_mass">Composition by mass</string>
+    <string name="mission_objects">#Mission_Objects</string>
+    <string name="bodies">Bodies</string>
+    <string name="bodies_used">#Bodies_Used</string>
+    <string name="estimated_cost">Estimated Cost</string>
+    <string name="based_on_rt">#Based_On_RT</string>
 </resources>
