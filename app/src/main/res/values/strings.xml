@@ -50,4 +50,5 @@
     <string name="bodies_used">#Bodies_Used</string>
     <string name="estimated_cost">Estimated Cost</string>
     <string name="based_on_rt">#Based_On_RT</string>
+    <string name="calculate_return_trip">Calculate return trip?</string>
 </resources>
