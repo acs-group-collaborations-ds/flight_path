@@ -25,88 +25,301 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingRight="20sp"
-            android:paddingLeft="20sp">
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/mission_title_overview"
-                android:textSize="28sp"
-                android:textColor="@color/cust_text_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="11dp"
                 android:text="@string/str_mission_name"
-                android:paddingTop="11dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
                 android:textColor="@color/cust_text_color"
-                android:paddingTop="20sp"
-                android:text="@string/duration"/>
+                android:textSize="28sp" />
 
             <TextView
+                android:id="@+id/starter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:paddingTop="8sp"
-                android:id="@+id/mission_duration"
-                android:text="@string/mission_duration"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:gravity="center"
+                android:paddingTop="11dp"
+                android:text="@string/from_the_starting_point"
                 android:textColor="@color/cust_text_color"
-                android:paddingTop="20sp"
-                android:text="@string/composition_by_mass"/>
+                android:textSize="18sp" />
 
-            <TextView
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:paddingTop="8sp"
-                android:id="@+id/mission_objects"
-                android:text="@string/mission_objects"/>
+                android:gravity="center"
+                android:stretchColumns="0,1">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20sp"
+                        android:text="@string/starting_planet"
+                        android:textColor="@color/cust_text_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/start_planet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8sp"
+                        android:text="@string/starting_planet"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20sp"
+                        android:text="@string/starting_velocity"
+                        android:textColor="@color/cust_text_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/start_vel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8sp"
+                        android:text="@string/starting_velocity"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20sp"
+                        android:text="@string/insertion_burn"
+                        android:textColor="@color/cust_text_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/insertion_burn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8sp"
+                        android:text="@string/insertion_burn"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20sp"
+                        android:text="@string/escape_velocity"
+                        android:textColor="@color/cust_text_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/escape_vel_s"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8sp"
+                        android:text="@string/escape_velocity"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20sp"
+                        android:text="@string/starting_deltav"
+                        android:textColor="@color/cust_text_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/deltav_s"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8sp"
+                        android:text="@string/starting_deltav"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+            </TableLayout>
 
             <TextView
+                android:id="@+id/destin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:gravity="center"
+                android:paddingTop="11dp"
+                android:text="@string/at_the_destination"
                 android:textColor="@color/cust_text_color"
-                android:paddingTop="20sp"
-                android:text="@string/bodies"/>
+                android:textSize="18sp" />
 
-            <TextView
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:paddingTop="8sp"
-                android:id="@+id/mission_bodies"
-                android:text="@string/bodies_used"/>
+                android:gravity="center"
+                android:stretchColumns="0,1">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="@color/cust_text_color"
-                android:paddingTop="20sp"
-                android:text="@string/estimated_cost"/>
+                <TableRow>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:paddingTop="8sp"
-                android:id="@+id/mission_cost"
-                android:text="@string/based_on_rt"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20sp"
+                        android:text="@string/destination_planet"
+                        android:textColor="@color/cust_text_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/dest_planet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8sp"
+                        android:text="@string/destination_planet"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20sp"
+                        android:text="@string/ending_velocity"
+                        android:textColor="@color/cust_text_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/end_vel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8sp"
+                        android:text="@string/ending_velocity"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20sp"
+                        android:text="@string/arrival_burn"
+                        android:textColor="@color/cust_text_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/arrival_burn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8sp"
+                        android:text="@string/arrival_burn"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20sp"
+                        android:text="@string/actual_arrival_burn"
+                        android:textColor="@color/cust_text_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/inf_d"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8sp"
+                        android:text="@string/actual_arrival_burn"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20sp"
+                        android:text="@string/escape_velocity"
+                        android:textColor="@color/cust_text_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/escape_vel_d"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8sp"
+                        android:text="@string/escape_velocity"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20sp"
+                        android:text="@string/ending_deltav"
+                        android:textColor="@color/cust_text_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/deltav_d"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8sp"
+                        android:text="@string/ending_deltav"
+                        android:textSize="20sp" />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="@color/cust_text_color"
+                        android:paddingTop="20sp"
+                        android:text="@string/final_deltav"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:paddingTop="8sp"
+                        android:id="@+id/final_deltav"
+                        android:text="@string/final_deltav"/>
+
+                </TableRow>
+
+            </TableLayout>
 
         </LinearLayout>
-
 
 
     </ScrollView>

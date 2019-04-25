@@ -8,12 +8,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 public class MissionOverviewActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     private String mname, shipn, payloadn, start_point, destination;
     FlightCalculator fCalc;
+    DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class MissionOverviewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         fCalc = new FlightCalculator();
+        db = new DBHelper(this);
 
         MissionFromPrefs();
 
@@ -32,7 +35,6 @@ public class MissionOverviewActivity extends AppCompatActivity {
     private void MissionStart(){
         String startpoint , destinationpoint;
         double start_vel , vel_inf_s, vel_inf_d, insertion_burn , escape_vel_start , deltav_s , ending_vel , arrival_burn , actual_arrival_burn , escape_velocity_end , deltav_d , final_deltav;
-        String[] mission = new String[13];
         double semimajoraxis;
         double mass, orbital_radius, orbital_velocity, planet_radius, uS, parking_orbit_radius_s, parking_orbit_circ_vel_s, vel_hyper_s;
         double mass2, orbital_radius2, orbital_velocity2, planet_radius2, uD, parking_orbit_radius_d, parking_orbit_circ_vel_d, vel_hyper_d;
@@ -74,8 +76,47 @@ public class MissionOverviewActivity extends AppCompatActivity {
 
         //FINAL
         final_deltav = fCalc.FinalDeltaV(deltav_s, deltav_d);
+
+        String[] mission = {startpoint, destinationpoint, String.valueOf(orbital_velocity), String.valueOf(start_vel),
+                String.valueOf(escape_vel_start), String.valueOf(deltav_s), String.valueOf(orbital_velocity2),
+                String.valueOf(ending_vel), String.valueOf(vel_inf_d), String.valueOf(escape_velocity_end),
+                String.valueOf(deltav_d), String.valueOf(final_deltav)};
+
+        //TO DB
+        db.writeData("missions", mission);
+        MissionDisplay(mission);
     }
 
+
+    private void MissionDisplay(String[] params){
+        TextView start, stop, svel, iburn, esvel1, deltavs, envel, aburn, aaburn, esvel2, deltavd, finaldeltav;
+        start = findViewById(R.id.start_planet);
+        stop = findViewById(R.id.dest_planet);
+        svel = findViewById(R.id.start_vel);
+        iburn = findViewById(R.id.insertion_burn);
+        esvel1 = findViewById(R.id.escape_vel_s);
+        deltavs = findViewById(R.id.deltav_s);
+        envel = findViewById(R.id.end_vel);
+        aburn = findViewById(R.id.arrival_burn);
+        aaburn = findViewById(R.id.inf_d);
+        esvel2 = findViewById(R.id.escape_vel_d);
+        deltavd = findViewById(R.id.deltav_d);
+        finaldeltav = findViewById(R.id.final_deltav);
+
+
+        start.setText(params[1]);
+        stop.setText(params[2]);
+        svel.setText(params[3]);
+        iburn.setText(params[4]);
+        esvel1.setText(params[5]);
+        deltavs.setText(params[6]);
+        envel.setText(params[7]);
+        aburn.setText(params[8]);
+        aaburn.setText(params[9]);
+        esvel2.setText(params[10]);
+        deltavd.setText(params[11]);
+        finaldeltav.setText(params[12]);
+    }
 
     private void MissionFromPrefs(){
         sharedPreferences = getSharedPreferences("MissionData", MODE_PRIVATE);

@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">FlightPaths</string>
     <string name="title_activity_login">Sign in</string>
-    <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign In</string>
@@ -58,4 +57,17 @@
     <string name="title_activity_new_payload">New Payload</string>
     <string name="payload_name">Payload Name</string>
     <string name="payload_mass_kg">Payload Mass(KG)</string>
+    <string name="from_the_starting_point">From the Starting Point</string>
+    <string name="starting_planet">Starting Planet:</string>
+    <string name="starting_velocity">Starting Velocity:</string>
+    <string name="insertion_burn">Insertion Burn:</string>
+    <string name="starting_deltav">Starting DeltaV:</string>
+    <string name="at_the_destination">At the Destination</string>
+    <string name="destination_planet">Destination Planet:</string>
+    <string name="ending_velocity">Ending Velocity:</string>
+    <string name="arrival_burn">Arrival Burn:</string>
+    <string name="actual_arrival_burn">Actual Arrival Burn:</string>
+    <string name="escape_velocity">Escape Velocity:</string>
+    <string name="ending_deltav">Ending DeltaV:</string>
+    <string name="final_deltav">FINAL DeltaV:</string>
 </resources>
