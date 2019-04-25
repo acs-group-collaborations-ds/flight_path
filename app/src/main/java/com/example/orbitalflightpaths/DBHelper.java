@@ -13,7 +13,6 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_SHIPS = "ships";
     private static final String TABLE_PAYLOADS = "payloads";
     private static final String TABLE_MISSIONS = "missions";
-    private static final String TABLE_PLANET_INFO = "planet_info";
     private SQLiteDatabase db;
 
     public DBHelper(Context context) {
@@ -25,11 +24,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String create_ships = "CREATE TABLE " + TABLE_SHIPS +"(shipname TEXT,shipmass TEXT)";
         String create_payloads = "CREATE TABLE " + TABLE_PAYLOADS +"(payloadname TEXT,payloadmass TEXT)";
-        //String create_planet_info = "CREATE TABLE " + TABLE_PLANET_INFO +"(planetname TEXT, mass TEXT, distancetosun TEXT)";;
         String create_missions = "CREATE TABLE " + TABLE_MISSIONS +"(regno TEXT,name TEXT)";
         db.execSQL(create_ships);
         db.execSQL(create_payloads);
-        //db.execSQL(create_planet_info);
         db.execSQL(create_missions);
     }
 

@@ -58,23 +58,7 @@
 
             </android.support.v7.widget.AppCompatSpinner>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/fuel_title_section"
-                android:textSize="18sp"
-                android:textColor="@color/cust_text_color"
-                android:paddingTop="15sp"
-                android:text="@string/fuel"/>
 
-            <android.support.v7.widget.AppCompatSpinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="8sp"
-                android:id="@+id/fuel_spinner">
-
-
-            </android.support.v7.widget.AppCompatSpinner>
 
             <TextView
                 android:layout_width="match_parent"
@@ -111,23 +95,6 @@
 
             </android.support.v7.widget.AppCompatSpinner>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/calculate_return_trip"
-                    android:textSize="16sp"/>
-
-                <CheckBox
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/return_trip"/>
-
-            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
