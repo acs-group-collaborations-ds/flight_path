@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewMissionActivity extends AppCompatActivity {
-    FlightCalculator path;
     DBHelper populate;
     Spinner ships, payloads, start_point, destination;
     EditText mission_name;
@@ -31,7 +30,6 @@ public class NewMissionActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        path = new FlightCalculator();
         populate = new DBHelper(this);
         ships = findViewById(R.id.ship_spinner);
         payloads = findViewById(R.id.payload_spinner);
