@@ -22,7 +22,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
     SharedPreferences myDB;
     SharedPreferences.Editor myDB_Editor;
-    TextView user_display, user_name_display;
+    TextView user_display;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +49,6 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
-        user_name_display = headerView.findViewById(R.id.user_display_name);
-
-        if (isSetName()){
-            SharedPreferences settings_pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-            String cust_username = settings_pref.getString("name_pref", "");
-            user_name_display.setText(cust_username);
-        } else {
-            Toast.makeText(this, "Please set your name in the settings section.", Toast.LENGTH_LONG).show();
-        }
 
         myDB = getSharedPreferences("ORBITAL_DATA", MODE_PRIVATE);
         String user = myDB.getString("username", "error");
@@ -99,11 +90,6 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean isSetName(){
-        SharedPreferences settings_pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        String cust_username = settings_pref.getString("name_pref", null);
-        return cust_username != null;
-    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -115,13 +101,9 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
             Intent shipsView = new Intent(Dashboard.this, Ships.class);
             startActivity(shipsView);
 
-        } else if (id == R.id.nav_fuel) {
-
-        } else if (id == R.id.nav_payloads) {
+        } else if  (id == R.id.nav_payloads) {
             Intent payload_list = new Intent(Dashboard.this, Payloads.class);
             startActivity(payload_list);
-        } else if (id == R.id.nav_map) {
-
         } else if (id == R.id.nav_settings) {
             Intent settings = new Intent(Dashboard.this, SettingsActivity.class);
             startActivity(settings);

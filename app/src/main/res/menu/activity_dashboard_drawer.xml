@@ -9,17 +9,9 @@
             android:icon="@mipmap/rocket_24"
             android:title="@string/ship" />
         <item
-            android:id="@+id/nav_fuel"
-            android:icon="@mipmap/gas_station_24"
-            android:title="@string/fuel" />
-        <item
             android:id="@+id/nav_payloads"
             android:icon="@mipmap/payload_box_24"
             android:title="@string/payloads" />
-        <item
-            android:id="@+id/nav_map"
-            android:icon="@mipmap/planet_24"
-            android:title="@string/map" />
     </group>
 
     <item android:title="@string/options">
