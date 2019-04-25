@@ -24,7 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String create_ships = "CREATE TABLE " + TABLE_SHIPS +"(shipname TEXT,shipmass TEXT)";
         String create_payloads = "CREATE TABLE " + TABLE_PAYLOADS +"(payloadname TEXT,payloadmass TEXT)";
-        String create_missions = "CREATE TABLE " + TABLE_MISSIONS +"(regno TEXT,name TEXT)";
+        String create_missions = "CREATE TABLE " + TABLE_MISSIONS +"(missionid integer primary key autoincrement, start_point TEXT, destination TEXT, start_vel TEXT, insertion_burn TEXT, escape_vel_start TEXT, deltav_s TEXT, ending_vel TEXT, arrival_burn TEXT, actual_arrival_burn TEXT, escape_velocity_end TEXT, deltav_d TEXT, final_deltav TEXT)";
         db.execSQL(create_ships);
         db.execSQL(create_payloads);
         db.execSQL(create_missions);
@@ -52,24 +52,32 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void updateData(String table, String param1,String param2){
-        db=getWritableDatabase();
-        switch (table){
-            case TABLE_SHIPS:
-                db.execSQL("update "+ table + " set name='"+ param1 +"'where regno='"+ param2 +"'");
-                break;
-            case TABLE_PAYLOADS:
-                db.execSQL("update "+ table + " set name='"+ param1 +"'where regno='"+ param2 +"'");
-                break;
-            default:
-                break;
-        }
+    public void writeData(String table, String[] params){
+        db = getWritableDatabase();
+        String syntax1 = "insert into " + TABLE_MISSIONS + " ";
+        String table_columns = "(start_point , destination , start_vel , insertion_burn , escape_vel_start , deltav_s , ending_vel , arrival_burn , actual_arrival_burn , escape_velocity_end , deltav_d , final_deltav)";
+        String syntax2 = " values(" + params[0] + ", " + params[1] + ", " + ", " + params[2] + ", "+ ", " + params[3] + ", "+ ", " + params[4] + ", "+ ", " + params[5] + ", "+ ", " + params[6] + ", "+ ", " + params[7] + ", "+ ", " + params[8] + ", "+ ", " + params[9] + ", "+ ", " + params[10] + ", "+ ", " + params[11] + ")";
+        db.execSQL(syntax1 + table_columns + syntax2);
     }
 
-    public void deleteData(String regno){
-        db=getWritableDatabase();
-        db.execSQL("delete from mytable where regno='"+regno+"'");
-    }
+//    public void updateData(String table, String param1,String param2){
+//        db=getWritableDatabase();
+//        switch (table){
+//            case TABLE_SHIPS:
+//                db.execSQL("update "+ table + " set name='"+ param1 +"'where regno='"+ param2 +"'");
+//                break;
+//            case TABLE_PAYLOADS:
+//                db.execSQL("update "+ table + " set name='"+ param1 +"'where regno='"+ param2 +"'");
+//                break;
+//            default:
+//                break;
+//        }
+//    }
+
+//    public void deleteData(String regno){
+//        db=getWritableDatabase();
+//        db.execSQL("delete from mytable where regno='"+regno+"'");
+//    }
 
     public Cursor readData(String table, String column){
         Cursor c1;
@@ -77,6 +85,7 @@ public class DBHelper extends SQLiteOpenHelper {
         c1 = db.rawQuery("select " + column + " from " + table, null);
         return c1;
     }
+
 
     public Cursor readData(String table, String column, String data, String id) {
         Cursor c1 = null;
