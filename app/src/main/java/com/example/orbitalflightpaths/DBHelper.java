@@ -1,6 +1,7 @@
 package com.example.orbitalflightpaths;
 
 import android.content.Context;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -24,11 +25,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String create_ships = "CREATE TABLE " + TABLE_SHIPS +"(shipname TEXT,shipmass TEXT)";
         String create_payloads = "CREATE TABLE " + TABLE_PAYLOADS +"(payloadname TEXT,payloadmass TEXT)";
-        String create_planet_info = "CREATE TABLE " + TABLE_PLANET_INFO +"(planetname TEXT, mass TEXT, distancetosun TEXT)";;
+        //String create_planet_info = "CREATE TABLE " + TABLE_PLANET_INFO +"(planetname TEXT, mass TEXT, distancetosun TEXT)";;
         String create_missions = "CREATE TABLE " + TABLE_MISSIONS +"(regno TEXT,name TEXT)";
         db.execSQL(create_ships);
         db.execSQL(create_payloads);
-        db.execSQL(create_planet_info);
+        //db.execSQL(create_planet_info);
         db.execSQL(create_missions);
     }
 
@@ -73,6 +74,13 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("delete from mytable where regno='"+regno+"'");
     }
 
+    public Cursor readData(String table, String column){
+        Cursor c1;
+        db = this.getReadableDatabase();
+        c1 = db.rawQuery("select " + column + " from " + table, null);
+        return c1;
+    }
+
     public Cursor readData(String table, String column, String data, String id) {
         Cursor c1 = null;
         try {
@@ -96,5 +104,14 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return c1;
     }
+
+    public long countTableItems(String table){
+        db = this.getReadableDatabase();
+        long countitems =  DatabaseUtils.queryNumEntries(db, table);
+        db.close();
+
+        return countitems;
+    }
+
 }
 
