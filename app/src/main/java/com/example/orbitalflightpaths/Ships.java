@@ -35,6 +35,7 @@ public class Ships extends AppCompatActivity {
             public void onClick(View view) {
                 Intent new_ship = new Intent(Ships.this, NewShips.class);
                 startActivity(new_ship);
+                finish();
             }
         });
     }
@@ -53,12 +54,14 @@ public class Ships extends AppCompatActivity {
             Cursor massC1 = db_work.readData("ships", "shipmass");
             if (nameC1.moveToFirst()) {
                 for (int i = 0; i < dbitems; i++) {
-                    shipnamesArr[i] = nameC1.getString(i);
+                    shipnamesArr[i] = nameC1.getString(0);
+                    nameC1.moveToNext();
                 }
             }
             if (massC1.moveToFirst()) {
                 for (int i = 0; i < dbitems; i++) {
-                    shipmassArr[i] = massC1.getString(i);
+                    shipmassArr[i] = massC1.getString(0);
+                    massC1.moveToNext();
                 }
             }
 
@@ -85,6 +88,5 @@ public class Ships extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        fromDB();
     }
 }

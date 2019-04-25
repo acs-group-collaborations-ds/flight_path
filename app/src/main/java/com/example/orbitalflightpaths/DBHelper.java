@@ -9,7 +9,7 @@ import android.database.Cursor;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ofpLocal";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String TABLE_SHIPS = "ships";
     private static final String TABLE_PAYLOADS = "payloads";
     private static final String TABLE_MISSIONS = "missions";

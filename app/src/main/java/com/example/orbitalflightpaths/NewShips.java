@@ -1,5 +1,6 @@
 package com.example.orbitalflightpaths;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -35,11 +36,19 @@ public class NewShips extends AppCompatActivity {
                 name = shipname.getText().toString().trim();
                 mass = shipmass.getText().toString().trim();
                 saveToDB(name, mass);
+                Intent shipscreen = new Intent(NewShips.this, Ships.class);
+                startActivity(shipscreen);
                 finish();
             }
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent shipscreen = new Intent(this, Ships.class);
+        startActivity(shipscreen);
+    }
 
     private void saveToDB(String name, String mass){
         try{
