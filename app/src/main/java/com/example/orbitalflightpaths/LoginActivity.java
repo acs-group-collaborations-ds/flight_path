@@ -21,6 +21,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -255,6 +256,7 @@ public class LoginActivity extends AppCompatActivity{
             }
             catch (Exception e) {
                 android.util.Log.e("Read:doInBackground--> ", "Sending log in parameters: " + e.toString());
+                Toast.makeText(LoginActivity.this, "Error: " + e.toString(), Toast.LENGTH_LONG).show();
             }
             try {
                 BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
