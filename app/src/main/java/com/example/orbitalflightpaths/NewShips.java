@@ -46,7 +46,7 @@ public class NewShips extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent shipscreen = new Intent(this, Ships.class);
+        Intent shipscreen = new Intent(NewShips.this, Ships.class);
         startActivity(shipscreen);
     }
 
