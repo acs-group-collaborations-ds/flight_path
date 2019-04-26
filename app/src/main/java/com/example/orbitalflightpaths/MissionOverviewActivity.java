@@ -41,7 +41,7 @@ public class MissionOverviewActivity extends AppCompatActivity {
         String prefcheck;
         SharedPreferences sharedPreferences = getSharedPreferences("MISSION_DISPLAY", MODE_PRIVATE);
         prefcheck = sharedPreferences.getString("name", null);
-        if (prefcheck.isEmpty()){
+        if (prefcheck == null){
             MissionFromDB();
             MissionStart();
         }
