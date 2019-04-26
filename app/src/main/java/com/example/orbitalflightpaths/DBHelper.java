@@ -25,7 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String create_ships = "CREATE TABLE " + TABLE_SHIPS +"(shipname TEXT,shipmass TEXT)";
         String create_payloads = "CREATE TABLE " + TABLE_PAYLOADS +"(payloadname TEXT,payloadmass TEXT)";
-        String create_missions = "CREATE TABLE " + TABLE_MISSIONS +"(missionid integer primary key autoincrement, start_point TEXT, destination TEXT, start_vel TEXT, insertion_burn TEXT, escape_vel_start TEXT, deltav_s TEXT, ending_vel TEXT, arrival_burn TEXT, actual_arrival_burn TEXT, escape_velocity_end TEXT, deltav_d TEXT, final_deltav TEXT)";
+        String create_missions = "CREATE TABLE " + TABLE_MISSIONS +"(name TEXT, start_point TEXT, destination TEXT, start_vel TEXT, insertion_burn TEXT, escape_vel_start TEXT, deltav_s TEXT, ending_vel TEXT, arrival_burn TEXT, actual_arrival_burn TEXT, escape_velocity_end TEXT, deltav_d TEXT, final_deltav TEXT)";
         String create_temp_missions = "CREATE TABLE " + TABLE_TEMP_MISSION + "(name TEXT, ship TEXT, payload TEXT, start TEXT, stop TEXT)";
         db.execSQL(create_ships);
         db.execSQL(create_payloads);
@@ -60,10 +60,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db = getWritableDatabase();
         switch (table){
             case TABLE_MISSIONS:
-                String syntax1 = "insert into " + table + " ";
-                String table_columns = "(start_point , destination , start_vel , insertion_burn , escape_vel_start , deltav_s , ending_vel , arrival_burn , actual_arrival_burn , escape_velocity_end , deltav_d , final_deltav)";
-                String syntax2 = " values('" + params[0] + "', '" + params[1] + "', '" + params[2] + "', '"+ params[3] + "', '"+ params[4] + "', '"+ params[5] + "', '" + params[6] + "', '" + params[7] + "', '" + params[8] + "', '" + params[9] + "', '" + params[10] + "', '" + params[11] + "')";
-                db.execSQL(syntax1 + table_columns + syntax2);
+                String syntax1 = "insert into " + table + " values('" + params[0] + "', '" + params[1] + "', '" + params[2] + "', '"+ params[3] + "', '"+ params[4] + "', '"+ params[5] + "', '" + params[6] + "', '" + params[7] + "', '" + params[8] + "', '" + params[9] + "', '" + params[10] + "', '" + params[11] + "', '" + params[12] + "')";
+                db.execSQL(syntax1);
                 break;
             case TABLE_TEMP_MISSION:
                 String part1 = "insert into " + table + " values('" + params[0] + "', '" + params[1] + "', '" + params[2] + "', '" + params[3] + "', '" + params[4] + "')";
@@ -75,7 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Cursor existsindb(String table, String column, String val){
-        Cursor c1 = db.rawQuery("select count("+ column +" from "+ table +" where "+ column +"='"+val+"'", null);
+        Cursor c1 = db.rawQuery("select count("+ column +") from "+ table +" where "+ column +"='"+val+"'", null);
         return c1;
     }
 
@@ -112,13 +110,13 @@ public class DBHelper extends SQLiteOpenHelper {
             db = this.getReadableDatabase();
             switch (table){
                 case TABLE_SHIPS:
-                    c1 = db.rawQuery("select "+ data +" from "+ table +" where "+ column +"="+id, null);
+                    c1 = db.rawQuery("select "+ data +" from "+ table +" where "+ column +" = '"+id + "'", null);
                     break;
                 case TABLE_PAYLOADS:
-                    c1 = db.rawQuery("select "+ data +" from "+ table +" where "+ column +"="+id, null);
+                    c1 = db.rawQuery("select "+ data +" from "+ table +" where "+ column +"= '"+id + "'", null);
                     break;
                 case TABLE_MISSIONS:
-                    c1 = db.rawQuery("select "+ data +" from "+ table +" where "+ column +"="+id, null);
+                    c1 = db.rawQuery("select "+ data +" from "+ table +" where "+ column +"= '"+id + "'", null);
                     break;
                 default:
                     break;

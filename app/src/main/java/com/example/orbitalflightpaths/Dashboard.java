@@ -2,10 +2,10 @@ package com.example.orbitalflightpaths;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,14 +15,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     SharedPreferences myDB;
     SharedPreferences.Editor myDB_Editor;
+    DBHelper mission_db;
     TextView user_display;
+    LinearLayout dashlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,8 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mission_db = new DBHelper(this);
+        dashlay = findViewById(R.id.table_lay_dash);
 
         FloatingActionButton fab = findViewById(R.id.fab_New_Mission);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +59,71 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         String user = myDB.getString("username", "error");
         user_display = headerView.findViewById(R.id.user_display_email);
         user_display.setText(user);
+        LoadMissions();
+    }
+
+    private void LoadMissions(){
+        int entries = (int)(long) mission_db.countTableItems("missions");
+        final String nameArr[] = new String[entries];
+        String startArr[] = new String[entries];
+        String destArr[] = new String[entries];
+        if (entries > 0){
+            Cursor nameC1 = mission_db.readData("missions", "name");
+            Cursor startC1 = mission_db.readData("missions", "start_point");
+            Cursor destinationC1 = mission_db.readData("missions", "destination");
+            if (nameC1.moveToFirst()) {
+                for (int i = 0; i < entries; i++) {
+                    nameArr[i] = nameC1.getString(0);
+                    nameC1.moveToNext();
+                }
+            }
+            if (startC1.moveToFirst()) {
+                for (int i = 0; i < entries; i++) {
+                    startArr[i] = startC1.getString(0);
+                    startC1.moveToNext();
+                }
+            }
+            if (destinationC1.moveToFirst()) {
+                for (int i = 0; i < entries; i++) {
+                    destArr[i] = destinationC1.getString(0);
+                    destinationC1.moveToNext();
+                }
+            }
+        }
+        for (int i = 0; i < entries; i++) {
+            TableRow tableRow = new TableRow(this);
+            tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 0));
+            TextView missionname = new TextView(this);
+            TextView startbody = new TextView(this);
+            TextView stopbody = new TextView(this);
+
+            missionname.setText(nameArr[i]);
+            missionname.setTextSize(20);
+            missionname.setTypeface(null, Typeface.BOLD);
+
+            startbody.setText(startArr[i]);
+            startbody.setTextSize(20);
+
+            stopbody.setText(destArr[i]);
+            stopbody.setTextSize(20);
+
+            tableRow.addView(missionname);
+            tableRow.addView(startbody);
+            tableRow.addView(stopbody);
+            dashlay.addView(tableRow);
+            final String current = nameArr[i];
+            tableRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("MISSION_DISPLAY", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("name", current);
+                    editor.apply();
+                    Intent overview = new Intent(Dashboard.this, MissionOverviewActivity.class);
+                    startActivity(overview);
+                }
+            });
+        }
     }
 
     @Override
@@ -68,19 +138,13 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.dashboard, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent settings = new Intent(Dashboard.this, SettingsActivity.class);
             startActivity(settings);
@@ -93,7 +157,6 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_ships) {

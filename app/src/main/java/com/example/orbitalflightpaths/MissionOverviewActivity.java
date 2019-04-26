@@ -38,14 +38,45 @@ public class MissionOverviewActivity extends AppCompatActivity {
 
         fCalc = new FlightCalculator();
         db = new DBHelper(this);
-        MissionFromDB();
-        if (MissionExists(mname)){
-            Toast.makeText(this, "A mission already exists with that name", Toast.LENGTH_SHORT).show();
-        } else {
-
+        String prefcheck;
+        SharedPreferences sharedPreferences = getSharedPreferences("MISSION_DISPLAY", MODE_PRIVATE);
+        prefcheck = sharedPreferences.getString("name", null);
+        if (prefcheck.isEmpty()){
+            MissionFromDB();
             MissionStart();
         }
+        else{
+            PrefMission(prefcheck);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("name");
+            editor.apply();
+        }
 
+    }
+
+    private void PrefMission(String name) {
+        Cursor mission;
+        long ldbitems = db.countTableItems("tempmission");
+        int dbitems = (int)(long) ldbitems;
+        mission = db.readData("missions", "name", "*", name);
+        String[] missionArr = new String[13];
+        missionArr[0] = name;
+        while (mission.moveToNext()){
+            missionArr[1] = mission.getString(mission.getColumnIndex("start_point"));
+            missionArr[2] = mission.getString(mission.getColumnIndex("destination"));
+            missionArr[3] = mission.getString(mission.getColumnIndex("start_vel"));
+            missionArr[4] = mission.getString(mission.getColumnIndex("insertion_burn"));
+            missionArr[5] = mission.getString(mission.getColumnIndex("escape_vel_start"));
+            missionArr[6] = mission.getString(mission.getColumnIndex("deltav_s"));
+            missionArr[7] = mission.getString(mission.getColumnIndex("ending_vel"));
+            missionArr[8] = mission.getString(mission.getColumnIndex("arrival_burn"));
+            missionArr[9] = mission.getString(mission.getColumnIndex("actual_arrival_burn"));
+            missionArr[10] = mission.getString(mission.getColumnIndex("escape_velocity_end"));
+            missionArr[11] = mission.getString(mission.getColumnIndex("deltav_d"));
+            missionArr[12] = mission.getString(mission.getColumnIndex("final_deltav"));
+        }
+        Log.d("Check", "PrefMission: " + missionArr[1]);
+        MissionDisplay(missionArr);
     }
 
     private boolean MissionExists(String checkname){
@@ -53,29 +84,27 @@ public class MissionOverviewActivity extends AppCompatActivity {
         Cursor c1 = db.existsindb("missions", "name", checkname);
         if (c1.moveToFirst()){
             if (c1.getCount() > 0){
-                checkresult = true;
+                checkresult = !true;
             }
-        }else {
-            checkresult = false;
         }
         return checkresult;
     }
 
     private void MissionStart(){
-        double start_vel , vel_inf_s, vel_inf_d, insertion_burn , escape_vel_start , deltav_s , ending_vel , arrival_burn , actual_arrival_burn , escape_velocity_end , deltav_d , final_deltav;
-        double semimajoraxis;
-        double mass, orbital_radius, orbital_velocity, planet_radius, uS, parking_orbit_radius_s, parking_orbit_circ_vel_s, vel_hyper_s;
-        double mass2, orbital_radius2, orbital_velocity2, planet_radius2, uD, parking_orbit_radius_d, parking_orbit_circ_vel_d, vel_hyper_d;
+        float start_vel , vel_inf_s, vel_inf_d, insertion_burn , escape_vel_start , deltav_s , ending_vel , arrival_burn , actual_arrival_burn , escape_velocity_end , deltav_d , final_deltav;
+        float semimajoraxis;
+        float mass, orbital_radius, orbital_velocity, planet_radius, uS, parking_orbit_radius_s, parking_orbit_circ_vel_s, vel_hyper_s;
+        float mass2, orbital_radius2, orbital_velocity2, planet_radius2, uD, parking_orbit_radius_d, parking_orbit_circ_vel_d, vel_hyper_d;
 
         try {
-            mass = Double.parseDouble(body_data(start_point, 0));
-            orbital_radius = Double.parseDouble(body_data(start_point, 1));
-            orbital_velocity = Double.parseDouble(body_data(start_point, 2));
-            planet_radius = Double.parseDouble(body_data(start_point, 3));
-            mass2 = Double.parseDouble(body_data(destination, 0));
-            orbital_radius2 = Double.parseDouble(body_data(destination, 1));
-            orbital_velocity2 = Double.parseDouble(body_data(destination, 2));
-            planet_radius2 = Double.parseDouble(body_data(destination, 3));
+            mass = Float.parseFloat(body_data(start_point, 0));
+            orbital_radius = Float.parseFloat(body_data(start_point, 1));
+            orbital_velocity = Float.parseFloat(body_data(start_point, 2));
+            planet_radius = Float.parseFloat(body_data(start_point, 3));
+            mass2 = Float.parseFloat(body_data(destination, 0));
+            orbital_radius2 = Float.parseFloat(body_data(destination, 1));
+            orbital_velocity2 = Float.parseFloat(body_data(destination, 2));
+            planet_radius2 = Float.parseFloat(body_data(destination, 3));
 
             Log.d("BodyData", "MissionStart: " + mass);
             //STARTING BODY
@@ -105,7 +134,7 @@ public class MissionOverviewActivity extends AppCompatActivity {
             //FINAL
             final_deltav = fCalc.FinalDeltaV(deltav_s, deltav_d);
             Log.d("DV", "MissionStart: deltavf" + final_deltav);
-            String[] mission = {start_point, destination, String.valueOf(orbital_velocity), String.valueOf(start_vel),
+            String[] mission = {mname, start_point, destination, String.valueOf(orbital_velocity), String.valueOf(start_vel),
                     String.valueOf(escape_vel_start), String.valueOf(deltav_s), String.valueOf(orbital_velocity2),
                     String.valueOf(ending_vel), String.valueOf(vel_inf_d), String.valueOf(escape_velocity_end),
                     String.valueOf(deltav_d), String.valueOf(final_deltav), null};
@@ -123,19 +152,19 @@ public class MissionOverviewActivity extends AppCompatActivity {
 
 
     private void MissionDisplay(String[] params){
-        m_name.setText(mname);
-        start.setText(params[0]);
-        stop.setText(params[1]);
-        svel.setText(params[2]);
-        iburn.setText(params[3]);
-        esvel1.setText(params[4]);
-        deltavs.setText(params[5]);
-        envel.setText(params[6]);
-        aburn.setText(params[7]);
-        aaburn.setText(params[8]);
-        esvel2.setText(params[9]);
-        deltavd.setText(params[10]);
-        finaldeltav.setText(params[11]);
+        m_name.setText(params[0]);
+        start.setText(params[1]);
+        stop.setText(params[2]);
+        svel.setText(params[3]);
+        iburn.setText(params[4]);
+        esvel1.setText(params[5]);
+        deltavs.setText(params[6]);
+        envel.setText(params[7]);
+        aburn.setText(params[8]);
+        aaburn.setText(params[9]);
+        esvel2.setText(params[10]);
+        deltavd.setText(params[11]);
+        finaldeltav.setText(params[12]);
     }
 
     private void MissionFromDB(){
