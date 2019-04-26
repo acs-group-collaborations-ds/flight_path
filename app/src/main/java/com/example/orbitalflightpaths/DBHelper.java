@@ -9,10 +9,11 @@ import android.database.Cursor;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ofpLocal";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String TABLE_SHIPS = "ships";
     private static final String TABLE_PAYLOADS = "payloads";
     private static final String TABLE_MISSIONS = "missions";
+    private static final String TABLE_TEMP_MISSION = "tempmission";
     private SQLiteDatabase db;
 
     public DBHelper(Context context) {
@@ -25,9 +26,11 @@ public class DBHelper extends SQLiteOpenHelper {
         String create_ships = "CREATE TABLE " + TABLE_SHIPS +"(shipname TEXT,shipmass TEXT)";
         String create_payloads = "CREATE TABLE " + TABLE_PAYLOADS +"(payloadname TEXT,payloadmass TEXT)";
         String create_missions = "CREATE TABLE " + TABLE_MISSIONS +"(missionid integer primary key autoincrement, start_point TEXT, destination TEXT, start_vel TEXT, insertion_burn TEXT, escape_vel_start TEXT, deltav_s TEXT, ending_vel TEXT, arrival_burn TEXT, actual_arrival_burn TEXT, escape_velocity_end TEXT, deltav_d TEXT, final_deltav TEXT)";
+        String create_temp_missions = "CREATE TABLE " + TABLE_TEMP_MISSION + "(name TEXT, ship TEXT, payload TEXT, start TEXT, stop TEXT)";
         db.execSQL(create_ships);
         db.execSQL(create_payloads);
         db.execSQL(create_missions);
+        db.execSQL(create_temp_missions);
     }
 
     @Override
@@ -35,6 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHIPS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PAYLOADS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MISSIONS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEMP_MISSION);
         onCreate(db);
     }
 
@@ -54,10 +58,25 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void writeData(String table, String[] params){
         db = getWritableDatabase();
-        String syntax1 = "insert into " + TABLE_MISSIONS + " ";
-        String table_columns = "(start_point , destination , start_vel , insertion_burn , escape_vel_start , deltav_s , ending_vel , arrival_burn , actual_arrival_burn , escape_velocity_end , deltav_d , final_deltav)";
-        String syntax2 = " values(" + params[0] + ", " + params[1] + ", " + ", " + params[2] + ", "+ ", " + params[3] + ", "+ ", " + params[4] + ", "+ ", " + params[5] + ", "+ ", " + params[6] + ", "+ ", " + params[7] + ", "+ ", " + params[8] + ", "+ ", " + params[9] + ", "+ ", " + params[10] + ", "+ ", " + params[11] + ")";
-        db.execSQL(syntax1 + table_columns + syntax2);
+        switch (table){
+            case TABLE_MISSIONS:
+                String syntax1 = "insert into " + table + " ";
+                String table_columns = "(start_point , destination , start_vel , insertion_burn , escape_vel_start , deltav_s , ending_vel , arrival_burn , actual_arrival_burn , escape_velocity_end , deltav_d , final_deltav)";
+                String syntax2 = " values('" + params[0] + "', '" + params[1] + "', '" + params[2] + "', '"+ params[3] + "', '"+ params[4] + "', '"+ params[5] + "', '" + params[6] + "', '" + params[7] + "', '" + params[8] + "', '" + params[9] + "', '" + params[10] + "', '" + params[11] + "')";
+                db.execSQL(syntax1 + table_columns + syntax2);
+                break;
+            case TABLE_TEMP_MISSION:
+                String part1 = "insert into " + table + " values('" + params[0] + "', '" + params[1] + "', '" + params[2] + "', '" + params[3] + "', '" + params[4] + "')";
+                db.execSQL(part1);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public Cursor existsindb(String table, String column, String val){
+        Cursor c1 = db.rawQuery("select count("+ column +" from "+ table +" where "+ column +"='"+val+"'", null);
+        return c1;
     }
 
 //    public void updateData(String table, String param1,String param2){
@@ -74,10 +93,10 @@ public class DBHelper extends SQLiteOpenHelper {
 //        }
 //    }
 
-//    public void deleteData(String regno){
-//        db=getWritableDatabase();
-//        db.execSQL("delete from mytable where regno='"+regno+"'");
-//    }
+    public void deleteData(String table){
+        db=getWritableDatabase();
+        db.execSQL("delete from " + table);
+    }
 
     public Cursor readData(String table, String column){
         Cursor c1;

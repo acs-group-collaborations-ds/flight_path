@@ -49,6 +49,6 @@ class FlightCalculator {
         return velocityHyper - parkingOrbitCircularVel;
     }
     protected double FinalDeltaV(double deltavS, double deltavD){
-        return Math.abs(deltavS) + Math.abs(deltavD);
+        return (Math.abs(deltavS) + Math.abs(deltavD));
     }
 }

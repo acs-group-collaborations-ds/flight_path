@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -65,14 +66,18 @@ public class NewMissionActivity extends AppCompatActivity {
     }
 
     private void toMissionCalc(String mission_name, String ship, String payload, String start_point, String destination){
-        mission_data = getSharedPreferences("MissionData", MODE_PRIVATE);
-        SharedPreferences.Editor editor = mission_data.edit();
-        editor.putString("name", mission_name);
-        editor.putString("ship", ship);
-        editor.putString("payload", payload);
-        editor.putString("start_point", start_point);
-        editor.putString("destination", destination);
-        editor.apply();
+//        mission_data = getSharedPreferences("MissionData", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = mission_data.edit();
+//        editor.putString("name", mission_name);
+//        editor.putString("ship", ship);
+//        editor.putString("payload", payload);
+//        editor.putString("start_point", start_point);
+//        editor.putString("destination", destination);
+//        editor.apply();
+
+        String[] missionstuff = {mission_name, ship, payload, start_point, destination};
+        Log.d("ArrayTest", "toMissionCalc: " + missionstuff[0] + " " + missionstuff[3]);
+        populate.writeData("tempmission", missionstuff);
     }
 
     private boolean FieldCheck(){
