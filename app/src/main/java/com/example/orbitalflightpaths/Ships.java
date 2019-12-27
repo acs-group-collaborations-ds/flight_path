@@ -84,9 +84,4 @@ public class Ships extends AppCompatActivity {
             }
         }
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 }

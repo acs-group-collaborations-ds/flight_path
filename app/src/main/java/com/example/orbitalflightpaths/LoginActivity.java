@@ -161,7 +161,7 @@ public class LoginActivity extends AppCompatActivity{
             try {
                 Uri.Builder builder = new Uri.Builder().appendQueryParameter("username", mEmail.getText().toString().trim()).appendQueryParameter("password", mPasswordView.getText().toString().trim());
                 query = builder.build().getEncodedQuery();
-                String url = "https://orbitalflightpaths.000webhostapp.com/users/register.php";
+                String url = "https://orbitalflightpaths.000webhostapp.com/users/regi ster.php";
                 URL obj = new URL(url);
                 con = (HttpURLConnection) obj.openConnection();
                 con.setRequestMethod("POST");
