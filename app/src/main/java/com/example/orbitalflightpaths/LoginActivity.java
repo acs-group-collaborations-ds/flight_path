@@ -60,6 +60,9 @@ public class LoginActivity extends AppCompatActivity{
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, Dashboard.class);
+                startActivity(intent);
+                finish();
                 if (form_state){
                     if (mEmail.getText().toString().trim().equals("") || mPasswordView.getText().toString().trim().equals("")){
                         final AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
